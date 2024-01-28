@@ -1,0 +1,22 @@
+{% extends 'restbook/main.html' %}
+{% load static %}
+
+
+
+{% block content %}
+{% for rest in rest %}
+    {% if rest.images %}
+        <div class="post">
+            <h1><em>{{ rest.restaurant_name }}</em></h1>
+            <p>{{ rest.cuisine }}</p>
+            <p>{{ rest.notes }}</p>
+        </div>
+
+        <div class="image">
+            <img class="image" src="{{ rest.images.url }}">
+        </div>
+
+       {% endif %}
+{% endfor %}
+
+{% endblock %}

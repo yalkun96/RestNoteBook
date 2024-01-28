@@ -22,6 +22,7 @@ from RestNoteBook import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('restbook.urls')),
+    path('users/', include('users.urls', namespace="users")),
 ]
 
 if settings.DEBUG:
