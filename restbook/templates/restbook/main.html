@@ -32,7 +32,15 @@
     <div class="box">
         <a href="{% url 'home' %}" class="menu">home</a>
         <a class="menu">blog</a>
-        <a href="{% url 'users:login' %}" class="menu">Login</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'users:logout' %}" class="menu">Logout</a>
+        {% else %}
+            <a href="{% url 'users:login' %}" class="menu">Login</a> | <a href="{% url 'users:register' %}" class="menu">Registraion</a>
+        {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'addnote' %}" class="menu">Add Note</a>
+    {% endif %}
     </div>
 </div>
 

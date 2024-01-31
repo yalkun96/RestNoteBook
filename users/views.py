@@ -1,23 +1,32 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from users.forms import LoginForm
+from users.forms import LoginForm, RegisterForm
 
 
-def login_user(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(request, username=cd['username'], password=cd['password'])
-            if user and user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('home'))
-    else:
-        form = LoginForm()
-    return render(request, 'users/login.html', {'form': form})
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'users/login.html'
+    extra_context = {'title': 'Authiphication'}
+
 
 def logout_user(request):
-    return HttpResponse('Logout')
+    logout(request)
+    return HttpResponseRedirect(reverse('users:login'))
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            return render(request, 'users/register_done.html',)
+    else:
+        form = RegisterForm()
+
+    return render(request, 'users/register.html', {'form': form})

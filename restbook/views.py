@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template.loader import get_template
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from .urls import *
@@ -12,6 +13,9 @@ def home(request):
     title = {'title': "Home"}
     return render(request, 'restbook/articles.html', {'rest': rest, 'title': title})
 
+
+
+@login_required
 def add_note(request):
     if request.method == 'POST':
         form = AddForm(request.POST, request.FILES)
