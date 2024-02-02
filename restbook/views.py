@@ -1,9 +1,13 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files import images
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from .models import *
 from .forms import *
 from .urls import *
@@ -13,26 +17,29 @@ def home(request):
     title = {'title': "Home"}
     return render(request, 'restbook/articles.html', {'rest': rest, 'title': title})
 
+def articles(requst):
+    pass
 
+
+class AddNoteView(LoginRequiredMixin, CreateView):
+    model = Rest
+    form_class = AddForm
+    template_name = 'restbook/addnote.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        # Set the user field to the currently logged-in user before saving
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 @login_required
-def add_note(request):
-    if request.method == 'POST':
-        form = AddForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:
+def profile(request):
+    prof = Profile.objects.all()
+    title = {'title': "Profiles"}
+    return render(request, 'restbook/profile.html', {'prof': prof})
 
-                Rest.objects.create(
-                    restaurant_name=form.cleaned_data['restaurant_name'],
-                    cuisine=form.cleaned_data['cuisine'],
-                    notes=form.cleaned_data['notes'],
-                    images=form.cleaned_data['images']
-                )
-                return redirect('home')
-            except IntegrityError:
-                form.add_error(None, "Error: Duplicate entry or database integrity issue")
-            except Exception as e:
-                form.add_error(None, f"Error: {str(e)}")
 
-    form = AddForm()
-    return render(request, 'restbook/addnote.html', {'form': form})
+
+def visit(request, id):
+
+    return render(request, 'restbook/visit.html')

@@ -1,7 +1,18 @@
-.post {
-    width: 500px;
-    font-family: 'Arial';
-}
+
 .image {
-    width: 400px;
+    width: 350px;
+}
+
+.post {
+    margin-top: 40px;
+    display: inline-block;
+
+}
+.info {
+    width: 350px;
+    height: 450px;
+    margin: 10px;
+
+    border: solid;
+
 }

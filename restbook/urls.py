@@ -3,5 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('', home, name="home"),
-    path('add_note', add_note, name="addnote")
+    path('addnote', AddNoteView.as_view(),  name='addnote'),
+    path('profile/', profile, name='profile'),
+    path('visit/<int:pk>/', visit, name='visit'),
 ]
+
