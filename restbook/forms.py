@@ -7,3 +7,14 @@ class AddForm(forms.ModelForm):
         model = Rest
         fields = [ 'restaurant_name', 'cuisine', 'notes', 'images', 'is_published']
 
+
+class ReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = ReviewModel
+        fields = ['notes', 'price', 'date']
+
+
+
+
+

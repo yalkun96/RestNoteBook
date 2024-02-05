@@ -6,14 +6,21 @@
 {% block content %}
 {% for rest in rest %}
         {% if rest.images %}
-        <a href="{% url 'visit' %}" class="post">
-            <div class="info">
+        <a href="{% url 'visit' slug=rest.slug %}" class="post-home">
+            <div class="home-card">
                 <h1><em>{{ rest.restaurant_name }}</em></h1>
                 <p>{{ rest.cuisine }}</p>
-                <p>{{ rest.notes }}</p>
                 <p><{{ rest.user }}</p>
                 <img class="image" src="{{ rest.images.url }}">
                 <p>{{ rest.user }}</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'edit' slug=rest.slug %}">Edit</a>
+                <form method="post">{% csrf_token %}
+                <a href="{% url 'delete' slug=rest.slug %}">Delete</a>
+
+
+</form>
+            {% endif %}
             </div>
 
          </a>

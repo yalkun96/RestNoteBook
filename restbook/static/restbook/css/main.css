@@ -27,3 +27,29 @@ body {
 
 
 }
+.price  {
+    margin-left: 80%;
+}
+.home-card {
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: 30px;
+  margin: 30px;
+  text-align: center;
+}
+.card-note {
+    position: relative;
+    margin: 50px;
+}
+.leave_comment {
+    margin: 30px;
+    border: solid;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #9f01ea;
+    transition: ease-in-out 0.5s;
+}
+.leave_comment:hover {
+    background-color: hotpink;
+}

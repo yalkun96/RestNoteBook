@@ -2,17 +2,19 @@
 {% load static %}
 
 {% block content %}
-    <div class="profile-block"">
-        {% for prof in prof %}
+    <div class="profile-block">
 
-        <a href="{% url 'home' %}" class="profile-itmes">
-            <img class="profile-image" src="{{ prof.avatar.url }}">
-            <p class="profile-text">{{ prof.user }}</p>
-            <p class="profile-text">{{ prof.bio }}</p>
+        <div class="card">
+            <img src="{{ prof.avatar.url }}" style="width:100%">
+            <h1>{{ prof.user }}</h1>
+            <p class="title">{{ prof.bio }}</p>
+            <p class="fa fa-dribbble">{{ prof.bio }}</p>
 
-        </a>
-        {% endfor %}
+        </div>
+
 
     </div>
 
 {% endblock %}
+
+

@@ -2,11 +2,17 @@
 {% load static %}
 
 {% block content%}
-    <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-        {{ error }}
-    <p><button type="submit">Add</button></p>
+      <form method="post" enctype="multipart/form-data">>
+          <main class="form-signin">
+              <h1 class="h3">Login</h1>
+                {% csrf_token %}
+                <div class="form-floating">
+                    {{ form.as_p }}
+                </div>
+                <p><button classs='"w-100 btn btn-lg' type="submit">Register</button></p>
     </form>
 
+
 {% endblock %}
+
+

@@ -2,20 +2,29 @@
 {% load static %}
 
 {% block content %}
-{% for rest in rest %}
-        {% if rest.images %}
-        <a href="{% url 'visit' %}" class="post">
-            <div class="info">
-                <h1><em>{{ rest.restaurant_name }}</em></h1>
-                <p>{{ rest.cuisine }}</p>
-                <p>{{ rest.notes }}</p>
-                <p><{{ rest.user }}</p>
-                <img class="image" src="{{ rest.images.url }}">
-                <p>{{ rest.user }}</p>
+        {% if post.images %}
+        <a class="post">
+            <div class="home-card">
+                <h1><em>{{ post.restaurant_name }}</em></h1>
+                <p>{{ post.cuisine }}</p>
+                <p><{{ post.user }}</p>
+                <img class="image" src="{{ post.images.url }}">
+                <p>{{ post.user }}</p>
             </div>
-
+            <p class="card-note">{{ post.notes }}</p>
          </a>
-        {% endif %}
 
-{% endfor %}
+        {% endif %}
+    {% if user.is_authenticated %}
+
+        <a class="leave_comment" href="{% url 'leave_comment' %}">Leave your comment</a>
+    {% endif %}
+
+        {% for review in review %}
+            <div class="home-card">
+                <p class="note">Note: {{ review.notes }}</p>
+                <p class="price">Price: <{{ review.price }} $</p>
+                <p class="price">Date of visit: {{ review.date }}</p>
+            </div>
+        {% endfor %}
 {% endblock %}
